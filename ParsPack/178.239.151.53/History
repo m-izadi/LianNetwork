@@ -1,0 +1,718 @@
+    1  history
+    2  cat /etc/apt/sources.list
+    3  mv /etc/apt/sources.list /root/sources.list.orginal
+    4  nano /etc/apt/sources.list 
+    5  ll /etc/apt/
+    6  chmod 600 /etc/apt/sources.list
+    7  ll /etc/apt/
+    8  chmod 650 /etc/apt/sources.list
+    9  ll /etc/apt/
+   10  chmod 644 /etc/apt/sources.list
+   11  ll /etc/apt/
+   12  chmod 755 /etc/apt/sources.list
+   13  ll /etc/apt/
+   14  ll 
+   15  chmod 644 /etc/apt/sources.list
+   16  ll 
+   17  ll /etc/apt/
+   18  apt update
+   19  nslookup
+   20  nano a
+   21  kvm-ok 
+   22  apt install cockpit cockpitmachines
+   23  apt install cockpit cockpit-machines
+   24  apt update
+   25  ll
+   26  nano /etc/apt/sources.list
+   27  apt update
+   28  nano /etc/netplan/50-cloud-init.yaml 
+   29  apt update
+   30  netplan apply 
+   31  apt update
+   32  apt upgrade 
+   33  apt install cockpit cockpit-machines
+   34  /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+   35  nano /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+   36  netplan apply
+   37  nano /etc/netplan/50-cloud-init.yaml 
+   38  mkdir /home/vm
+   39  nano /etc/netplan/50-cloud-init.yaml 
+   40  ping 192.168.122.254
+   41  nano ir.zone
+   42  mv /etc/apt/sources.list /root/sources.list.iranserver
+   43  mv /root/sources.list.orginal /etc/apt/sources.list
+   44  apt update
+   45  apt install ipset iptables iproute2 iptables-persistent curl -y
+   46  mv /etc/apt/sources.list /root/sources.list.orginal
+   47  cp /root/sources.list.iranserver /etc/apt/sources.list
+   48  apt update
+   49  apt install ipset iptables iproute2 iptables-persistent curl -y
+   50  ipset create iran hash:net family inet
+   51  while read -r cidr; do   ipset add iran "$cidr"; done < /root/ir.zone
+   52  sudo ipset restore < /etc/ipset/iran.ipset
+   53  sudo ipset create iran hash:net
+   54  ipset list iran | head
+   55  sudo nano /usr/local/bin/ipset-iran.sh
+   56  sudo chmod +x /usr/local/bin/ipset-iran.sh
+   57  sudo nano /etc/systemd/system/ipset-iran.service
+   58  sudo systemctl daemon-reload
+   59  sudo systemctl enable ipset-iran
+   60  sudo systemctl start ipset-iran
+   61  sudo systemctl status ipset-iran
+   62  sudo nano /etc/systemd/system/ipset-iran.service
+   63  ./usr/local/bin/ipset-iran.sh
+   64  /usr/local/bin/ipset-iran.sh
+   65  nano /usr/local/bin/ipset-iran.sh
+   66  /usr/local/bin/ipset-iran.sh
+   67  nano /usr/local/bin/ipset-iran.sh
+   68  nano /usr/local/bin/ipset-iran.sh
+   69  mkdir /etc/ipset/
+   70  nano /usr/local/bin/ipset-iran.sh
+   71  sudo nano /etc/systemd/system/ipset-iran.service
+   72  sudo ipset restore < /etc/ipset/iran.ipset
+   73  /sbin/ipset/sbin/ipset save > /etc/ipset.ir.conf
+   74  sudo nano /etc/systemd/system/ipset-iran.service
+   75  nano /usr/local/bin/ipset-iran.sh
+   76  /usr/local/bin/ipset-iran.sh
+   77  sudo systemctl start ipset-iran
+   78  sudo systemctl status ipset-iran
+   79  nano /etc/systemd/system/iran-routing.service
+   80  nano /usr/local/bin/iran-routing.sh
+   81  systemctl daemon-reload
+   82  systemctl enable iran-routing
+   83  systemctl start iran-routing
+   84  systemctl status iran-routing
+   85  sudo chmod +x /usr/local/bin/iran-routing.sh
+   86  systemctl start iran-routing
+   87  systemctl status iran-routing
+   88  ping 8.8.8.8
+   89  reboot
+   90  ll
+   91  ll /home/
+   92  cp /home/mikrotik-routeros-kvm-disk.qcow2.gz.bkp /home/vm/mikrotik..gz.bkp
+   93  gunzip /home/vm/mikrotik..gz.bkp 
+   94  gunzip
+   95  gunzip -
+   96  gunzip -h
+   97  gunzip -d /home/vm/mikrotik..gz.bkp 
+   98  mv /home/vm/mikrotik..gz.bkp /home/vm/mikrotik.gz
+   99  gunzip -d /home/vm/mikrotik.gz 
+  100  ll /home/vm/
+  101  ll /home/vm/mikrotik 
+  102  ls /home/vm
+  103  mv /home/vm/mikrotik /home/vm/mikrotik.qcow2
+  104  ls /home/vm
+  105  ll /home/vm
+  106  ping sep.shaparak.ir
+  107  nslookup
+  108  nano /etc/resolv.conf 
+  109  ping 8.8.8.8
+  110  nano /etc/netplan/50-cloud-init.yaml 
+  111  nano /etc/resolv.conf 
+  112  nano /etc/systemd/resolved.conf 
+  113  nslookup
+  114  netplan apply 
+  115  ping soft98.ir
+  116  ping 192.168.122.254
+  117  ping soft98.ir
+  118  ping sep.shaparak.ir
+  119  apt install traceroute
+  120  history
+  121  cat ./.bash_history 
+  122  history | cut -c 8-
+  123  clear
+  124  history | cut -c 8-
+  125  sudo nano /usr/local/bin/ipset-iran.sh
+  126  sudo nano /etc/systemd/system/ipset-iran.service
+  127  nano /etc/systemd/system/iran-routing.service
+  128  nano /usr/local/bin/iran-routing.sh
+  129  cat /usr/local/bin/iran-routing.sh
+  130  apt install ./cockpit-navigator_0.5.10-1focal_all.deb 
+  131  ll
+  132  chmod 777 cockpit-navigator_0.5.10-1focal_all.deb 
+  133  ll
+  134  apt install ./cockpit-navigator_0.5.10-1focal_all.deb 
+  135  apt autoremove
+  136  systemctl restart cockpit.socket
+  137  ping deb.nodesource.com
+  138  echo "100 iran-bypass" | sudo tee -a /etc/iproute2/rt_tables
+  139  sudo ip route add default via 192.168.122.254 dev virbr0 table iran-bypass
+  140  sudo nano /usr/local/bin/iran-routing.sh
+  141  ping deb.nodesource.com
+  142  sudo nano /usr/local/bin/iran-routing.sh
+  143  /usr/local/bin/iran-routing.sh
+  144  ping deb.nodesource.com
+  145  /usr/local/bin/iran-routing.sh
+  146  nano /usr/local/bin/iran-routing.sh
+  147  reboot
+  148  history
+  149  ping claude.com
+  150  ping deb.nodesource.com
+  151  sudo nano /usr/local/bin/ipset-iran.sh
+  152  chmod +x /usr/local/bin/ipset-iran.sh
+  153  systemctl daemon-reload
+  154  systemctl reset-failed ipset-iran.service
+  155  systemctl start ipset-iran.service
+  156  systemctl status ipset-iran.service
+  157  ll /etc/ipset/ipset.ir.conf
+  158  ll /etc/ip
+  159  nano /usr/local/bin/ipset-iran.sh
+  160  reboot
+  161  ping youtube.com
+  162  curl https://www.anaconda.com/docs/getting-started/miniconda/install
+  163  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+  164  bash ~/Miniconda3-latest-Linux-x86_64.sh
+  165  source ~/.bashrc
+  166  conda create -n apienv python=3.10
+  167  pwd
+  168  cd /home/
+  169  tmux new -s api
+  170  tmux new -s 1
+  171  tmux new -s 2
+  172  tmux new -s 3
+  173  tmux new -s 4
+  174  tmux new -s 5
+  175  tmux new -s 6
+  176  tmux new -s 7
+  177  tmux attach -t 1
+  178  mkdir negareshvakil
+  179  cd negareshvakil/
+  180  nano app.py
+  181  nano template.html
+  182  tmux attach -t negareshvakil
+  183  tmux new -s negareshvakil
+  184  sudo -i
+  185  tmux new -s 8
+  186  tmux new -s GPT52R
+  187  tmux new -s GPT52
+  188  tmux attach -t  GPT52R
+  189  tmux attach -t  GPT52
+  190  tmux ls
+  191  tmux attach -t negareshvakil
+  192  tmux attach -t 5
+  193  tmux list
+  194  tmux ls
+  195  tmux new -s kimi
+  196  tmux new -s gemini3pro
+  197  tmux new -s grok
+  198  tmux attach -t grok
+  199  cd /home/negaresh_vakil/
+  200  tmux new -s negvakil1
+  201  tmux new -s negvakil2
+  202  tmux new -s negvakil3
+  203  tmux new -s negvakil4
+  204  tmux new -s negvakil5
+  205  tmux ls
+  206  tmux attach -t grok
+  207  tmux attach -t gemini3pro
+  208  cd /home/negaresh_vakil/
+  209  cd templates/
+  210  nano template.html
+  211  ls
+  212  cd /home/negaresh_vakil_gpt/
+  213  tmux new -s nvakilgpt1
+  214  tmux new -s nvakilgpt2
+  215  tmux new -s nvakilgpt3
+  216  tmux new -s nvakilgpt4
+  217  tmux attach -t nvakilgpt4
+  218  tmux new -s nvakilgpt5
+  219  tmux new -s nvakilopus1
+  220  tmux new -s nvakilopus2
+  221  tmux attach -t nvakilopus2
+  222  tmux attach -t nvakilopus1
+  223  tmux attach -t nvakilopus2
+  224  tmux ls
+  225  tmux attach -t nvakilopus1
+  226  tmux attach -t nvakilopus2
+  227  tmux new -s nvakilopus3
+  228  cd /home/negaresh_vakil_claudeopus/
+  229  tmux new -s nvakilopus4
+  230  tmux new -s nvakilopus5
+  231  df -h
+  232  htop
+  233  tmux ls
+  234  tmux attach -t GPT52
+  235  tmux ls
+  236  tmux attach -t nvakilopus4
+  237  tmux attach -t nvakilopus3
+  238  tmux attach -t nvakilopus1
+  239  tmux attach -t nvakilopus2
+  240  tmux attach -t nvakilopus3
+  241  tmux attach -t nvakilopus4
+  242  tmux attach -t nvakilopus5
+  243  tmux attach -t nvakilopus3
+  244  tmux attach -t nvakilopus1
+  245  tmux attach -t nvakilopus2
+  246  tmux attach -t nvakilopus1
+  247  history
+  248  curl --location 'http://127.0.0.1:5021/chat' --header 'Content-Type: application/json' \
+  249  --data '{
+  250    "message": " کوتاه بگو جی بلدی"
+  251  }'
+  253  curl --location 'http://178.239.151.53:5021/chat' --header 'Content-Type: application/json' \
+  254  --data '{
+  255    "message": " کوتاه بگو جی بلدی"
+  256  }
+  257  '
+  258  tmux attach -t nvakilopus1
+  259  curl -X POST http://localhost:5041/chat -H "Content-Type: application/json" -d '{"message":"سلام، یک دادخواست نمونه بنویس","use_web_search":false}'
+  260  ping claude.ai
+  261  ping google.com
+  262  ping youtube.com
+  263  ping 192.168.88.242
+  264  tmux attach -t nvakilopus1
+  265  ping 192.168.88.242
+  266  traceroute google.com
+  267  ping google.com
+  268  ping ping.eu
+  269  traceroute google.com
+  270  apt update
+  271  tmux attach -t 5
+  272  tmux new -s 9
+  273  tmux attach -t 9
+  274  tmux new -s opus8011
+  275  tmux new -s opus8012
+  276  tmux new -s opus8013
+  277  tmux ls
+  278  tmux new -s deepseek
+  279  conda activate apienv 
+  280  cd /home/claudeopus2/
+  281  cd ..
+  282  cd tafakor_vokala/
+  283  python 9tafakor_vokala2.py 
+  284  conda activate apienv
+  285  cd /home/tafakor_vokala/
+  286  ls
+  287  python  9tafakor_vokala2.py 
+  288  tmux ls
+  289  tmux new -s tafakor2
+  290  tmux ls
+  291  tmux attach -t tmux
+  292  tmux attach -t kimi
+  293  tmux ls
+  294  tmux attach -t opus8011
+  295  tmux new -s kimi2
+  296  tmux ls
+  297  tmux attach -t tafakor2
+  298  tmux attach -t opus8011
+  299  tmux ls
+  300  tmux attach -r GPT52R
+  301  tmux attach -t GPT52R
+  302  tmux ls
+  303  tmux attach -r GPT52R
+  304  tmux attach -t GPT52R
+  305  tmux attach -t gemini3pro
+  306  tmux new -s tafakor123
+  307  tmux attach -t tafakor123
+  308  tmux new -s tafakor4
+  309  tmux new -s tafakor5
+  310  tmux ls
+  311  tmux attach -t GPT52R
+  312  tmux attach -t GPT52
+  313  tmux attach -t GPT52
+  314  tmux attach -t GPT52R
+  315  tmux ls
+  316  tmux attach -t 8
+  317  tmux attach -t GPT52R
+  318  tmux attach -t GPT52R
+  319  tmux attach -t GPT52
+  320  tmux new -s apicheck
+  321  conda activate apienv
+  322  pip list
+  323  conda activate geminienv
+  324  pip list
+  325  openai==2.15.0
+  326  pip install openai==2.15.0
+  327  tmux attach -t apicheck
+  328  tmux ls
+  329  tmux attach -t opus8011
+  330  tmux new -s opus41layehe
+  331  tmux ls
+  332  tmux attach -t gemini3pro
+  333  tmux attach -t GPT52R
+  334  tmux attach -t GPT52
+  335  tmux attach -t GPT52R
+  336  tmux ls
+  337  tmux attach -t opus8011
+  338  tmux ls
+  339  tmux attach -t apicheck
+  340  tmux ls
+  341  tmux attach -t apicheck
+  342  history
+  343  tmux new -s liansite
+  344  sudo apt install nginx -y
+  345  sudo systemctl enable nginx
+  346  sudo systemctl start nginx
+  347  sudo ufw allow 'Nginx Full'
+  348  sudo ufw reload
+  349  sudo mkdir -p /etc/nginx/ssl
+  350  cd /home/liansite/
+  351  ls
+  352  sudo cp Certificate.txt /etc/nginx/ssl/cert.pem
+  353  sudo cp privatekey.txt /etc/nginx/ssl/key.pem
+  354  sudo cat Certificate.txt CA\ Bundle.txt > /etc/nginx/ssl/fullchain.pem
+  355  sudo chmod 600 /etc/nginx/ssl/*
+  356  sudo nano /etc/nginx/sites-available/default
+  357  sudo nginx -t
+  358  cd /etc/nginx/ssl
+  359  ls
+  360  nano cert.pem 
+  361  nano fullchain.pem 
+  362  nano key.pem 
+  363  sudo nginx -t
+  364  sudo systemctl restart nginx
+  365  sudo nano /etc/nginx/sites-available/default
+  366  sudo nginx -t
+  367  sudo nano /etc/nginx/sites-available/default
+  368  sudo nginx -t
+  369  sudo nano /etc/nginx/sites-available/default
+  370  sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak-$(date +%F-%H%M)
+  371  sudo tee /etc/nginx/sites-available/default > /dev/null << 'EOF'
+  372  server {
+  373      listen 80;
+  374      server_name lian-pq.ir www.lian-pq.ir;
+  375      return 301 https://$host$request_uri;
+  376  }
+  377  server {
+  378      listen 443 ssl http2;
+  379      server_name lian-pq.ir www.lian-pq.ir;
+  380      ssl_certificate     /etc/nginx/ssl/fullchain.pem;
+  381      ssl_certificate_key /etc/nginx/ssl/privatekey.txt;
+  382      ssl_protocols       TLSv1.2 TLSv1.3;
+  383      ssl_ciphers         ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+  384      location / {
+  385          proxy_pass http://127.0.0.1:3000;
+  386          proxy_set_header Host $host;
+  387          proxy_set_header X-Real-IP $remote_addr;
+  388          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  389          proxy_set_header X-Forwarded-Proto $scheme;
+  390      }
+  391  }
+  392  EOF
+  393  sudo nginx -t
+  394  cp /home/liansite/privatekey.txt /etc/nginx/ssl/
+  395  sudo nginx -t
+  396  sudo systemctl restart nginx
+  397  sudo nano /etc/nginx/sites-available/default
+  398  sudo nginx -t
+  399  sudo systemctl restart nginx
+  400  cat /etc/nginx/ssl/Certificate.txt /etc/nginx/ssl/CA_Bundle.txt > /etc/nginx/ssl/fullchain.pem
+  401  cd /home/liansite/
+  402  cat /etc/nginx/ssl/Certificate.txt /etc/nginx/ssl/CA_Bundle.txt > /etc/nginx/ssl/fullchain.pem
+  403  ls
+  404  cat /etc/nginx/ssl/Certificate.txt /etc/nginx/ssl/CABundle.txt > /etc/nginx/ssl/fullchain.pem
+  405  cat Certificate.txt CABundle.txt > /etc/nginx/ssl/fullchain.pem
+  406  cp privatekey.txt /etc/nginx/ssl/privatekey.pem
+  407  chmod 644 /etc/nginx/ssl/fullchain.pem
+  408  chmod 600 /etc/nginx/ssl/privatekey.pem
+  409  sudo nano /etc/nginx/sites-available/default
+  410  sudo nginx -t
+  411  nano /etc/nginx/ssl/fullchain.pem 
+  412  sudo nginx -t
+  413  sudo systemctl reload nginx
+  414  cd /etc/nginx/ssl/
+  415  ls
+  416  sudo nano /etc/nginx/sites-available/default
+  417  sudo nginx -t
+  418  sudo systemctl reload nginx
+  419  tmux ls
+  420  sudo apt install certbot python3-certbot-nginx
+  421  sudo nano /etc/nginx/sites-available/default
+  422  rm sudo nano /etc/nginx/sites-available/default
+  423  rm /etc/nginx/sites-available/default
+  424  sudo nano /etc/nginx/sites-available/default
+  425  sudo nginx -t
+  426  sudo systemctl reload nginx
+  427  sudo certbot --nginx   -d lian-pq.ir   -d www.lian-pq.ir
+  428  sudo certbot certificates
+  429  sudo certbot delete --cert-name lian-pq.ir
+  430  sudo certbot --nginx rollback
+  431  sudo nano /etc/nginx/sites-available/default
+  432  sudo nginx -t
+  433  sudo systemctl reload nginx
+  434  sudo nano /etc/nginx/sites-available/default
+  435  sudo nginx -t
+  436  sudo systemctl reload nginx
+  437  sudo tail -f /var/log/nginx/error.log
+  438  sudo apt update
+  439  sudo apt upgrade nginx
+  440  sudo nginx -t
+  441  sudo systemctl reload nginx
+  442  cd /home/liansite/
+  443  ls
+  444  sudo mkdir -p /etc/ssl/private
+  445  sudo chmod 700 /etc/ssl/private
+  446  sudo cp cert.pem          /etc/ssl/lian-pq.ir.pem
+  447  sudo cp privatekey.txt    /etc/ssl/private/lian-pq.ir.key
+  448  sudo nano /etc/nginx/sites-available/default
+  449  sudo nginx -t
+  450  sudo systemctl restart nginx
+  451  tmux ls
+  452  tmux attach -t apicheck
+  453  exit
+  454  traceroute api.kavenegar.com
+  455  docker ps
+  456  traceroute 130.185.75.96
+  457  exit
+  458  docker ps
+  459  ls
+  460  cd /home/
+  461  ls
+  462  cd liansite/
+  463  tmux new -s liansite
+  464  ping 192.168.88.242
+  465  tmux new -s check
+  466  traceroute google.com
+  467  ping google.com
+  468  ping ping.eu
+  469  ping google.com
+  470  tmux new -s site
+  471  tmux new -s check
+  472  ping claude.ai
+  473  ping aparat.com
+  474  htop
+  475  tmux ls
+  476  tmux new -s check
+  477  tmux new -s site
+  478  history
+  479  ping google.com
+  480  ping claude.ai
+  481  docker ps
+  482  ip route
+  483  ping 185.125.190.82
+  484  traceroute 185.125.190.82
+  485  ipset list iran | head
+  486  systemctl status ipset-iran
+  487  iptables -t mangle -L OUTPUT -n -v
+  488  systemctl status iran-routing
+  489  ip rule
+  490  ip route show table iran-bypass
+  491  ip a | grep virbr0
+  492  iptables -t mangle -L OUTPUT -n -v
+  493  ip route get 8.8.8.8 mark 1
+  494  nano /etc/netplan/50-cloud-init.yaml 
+  495  curl codeload.github.com
+  496  curl https://codeload.github.com
+  497  exit
+  498  traceroute 8.8.8.8
+  499  traceroute 217.218.155.155
+  500  ping google.com
+  501  ping google.com
+  502  ping claude.ai
+  503  ping google.com
+  504  history
+  505  ping google.com
+  506  ping google.com\
+  507  ping google.com
+  508  tmux ls
+  509  tmux attach -t check
+  510  ping google.com
+  511  history
+  512  ping 8.8.8.8
+  513  ping google.com
+  514  ping 8.8.8.8
+  515  ping google.com
+  516  cd /home/liansite/
+  517  python app.py 
+  518  conda activate geminienv
+  519  cd /home/apiCheck/
+  520  ls
+  521  python apiCheck.py 
+  522  فئعط مس
+  523  tmux ls
+  524  ls
+  525  cd /home/
+  526  ls
+  527  tmux new -s site
+  528  tmux ls
+  529  ping google.com
+  530  ls
+  531  nano mikrotik-routeros-kvm-disk.qcow2.gz.bkp 
+  532  tmux ls
+  533  ping google.com
+  534  ping 82.115.25.67
+  535  history
+  536  ping 82.115.25.67
+  537  tmux new -s ssh
+  538  tmux attach -t ssh
+  539  ping 78.110.124.182
+  540  conda deactivate
+  541  tmux attach -t ssh
+  542  tmux attach -t ssh
+  543  sudo apt install autossh
+  544  autossh -M 0 -N -R 2222:localhost:22   -o "ServerAliveInterval 30"   -o "ServerAliveCountMax 3"   user@serverA
+  545  autossh -M 0 -N -R 2222:localhost:22   -o "ServerAliveInterval 30"   -o "ServerAliveCountMax 3"   root@202.133.91.141
+  546  nano o /etc/systemd/system/reverse-tunnel.service
+  547  conda deactivate
+  548  ls
+  549  tmux attach -t ssh
+  550  [ssh] 0:ssh*                                                                                                                  "srv3475570261" 07:21 23-Apr-26
+  551  tmux attach -t ssh
+  552  ping google.con
+  553  ping google.com
+  554  tmux ls
+  555  tmux attach -t site
+  556  tmux new -s check
+  557  ping google.com
+  558  ls
+  559  cd liansite/
+  560  ls
+  561  python app.py 
+  562  ls
+  563  source ~/miniconda3/bin/activate 
+  564  cd /home/
+  565  ls
+  566  cd apiCheck/
+  567  ls
+  568  python apiCheck.py 
+  569  python main.py 
+  570  conda env list
+  571  conda activate geminienv
+  572  python apiCheck.py 
+  573  ping 202.133.91.141
+  574  ssh -N -R 2222:localhost:22 root@202.133.91.141
+  575  autossh -M 0 -N -R 2222:localhost:22   -o "ServerAliveInterval 30"   -o "ServerAliveCountMax 3"   root@202.133.91.141
+  576  autossh -M 0 -N -R 2222:localhost:22   -o "ServerAliveInterval 30"   -o "ServerAliveCountMax 3"   root@202.133.91.141~
+  577  autossh -M 0 -N -R 2222:localhost:22   -o "ServerAliveInterval 30"   -o "ServerAliveCountMax 3"   root@202.133.91.141
+  578  ping youtube.com
+  579  route print
+  580  ip route
+  581  reboot
+  582  ping youtube.com
+  583  ping claude.ai
+  584  tmux attach -t windows
+  585  ls
+  586  cd /home/
+  587  ls
+  588  tmux new -s check
+  589  tmux list
+  590  tmux 
+  591  tmux list
+  592  tmux ls
+  593  ping claude.ai
+  594  ping tebyan.net
+  595  tmux ls
+  596  tmux new -s site
+  597  tmux attach -t apicheck
+  598  tmux new -s apicheck
+  599  tmux new -s site
+  600  tmux attach -t site
+  601  tmux ls
+  602  tmux new -s site
+  603  conda env list
+  604  conda activate apienv
+  605  ls
+  606  cd /home/liansite/
+  607  ls
+  608  python app.py 
+  609  ls
+  610  ip a
+  611  cat /etc/os-release 
+  612  ip a
+  613  tmux a
+  614  ls
+  615  netstat -tpln
+  616  apt-get install netstat
+  617  apt-get install net-tool
+  618  apt-get install net-tools
+  619  netstat -tpln
+  620  vim /etc/ssh/sshd_config
+  621  sshd -t
+  622  systemctl restart ssh
+  623  systemctl restart sshd
+  624  netstat -tpln
+  625  tmux new -s check
+  626  traceroute 1.1.1.1
+  627  ping 1.1.1.1
+  628  traceroute 1.1.1.1
+  629  ping 1.1.1.1
+  630  exit
+  631  traceroute 1.1.1.1
+  632  ping 1.1.1.1
+  633  traceroute 1.1.1.1
+  634  cat .ssh/
+  635  cat .ssh/authorized_keys 
+  636  vim .ssh/authorized_keys 
+  637  vim /etc/nginx/nginx.conf 
+  638  cd /etc/nginx/conf.d/
+  639  ls
+  640  cd
+  641  ping claude.ai
+  642  ping elevenlabs.io
+  643  ping gemini.google.com
+  644  cat /etc/passwd
+  645  adduser dev
+  646  usermod -aG sudo dev
+  647  su dev
+  648  vim .ssh/authorized_keys 
+  649  exit
+  650  cd /etc/wireguard/
+  651  vim wg0.conf
+  652  wg genkey | tee server_private.key | wg pubkey > server_public.key
+  653  ls
+  654  cat server_public.key
+  655  cat server_private.key
+  656  vim wg0.conf
+  657  wg-quick strip wg0 > /dev/null
+  658  systemctl enable wg-quick@wg0
+  659  systemctl start wg-quick@wg0
+  660  wg show
+  661  curl -4 https://ifconfig.me
+  662  curl https://api.openai.com/
+  663  curl https://api.openai.com/... 
+  664  ping ipconfig.io
+  665  vim /etc/hosts
+  666  vim wg0.conf 
+  667  wg-quick down wg0 
+  668  wg-quick up wg0 
+  669  curl ipconfig.io
+  670  wg show
+  671  ls
+  672  cat server_private.key
+  673  cat server_public.key 
+  674  مس
+  675  ls
+  676  rm -rf server_p*
+  677  wg genkey | tee server_private.key | wg pubkey > server_public.key
+  678  ls
+  679  cat server_private.key
+  680  ls
+  681  cat server_private.key 
+  682  cat server_public.key 
+  683  vim wg0.conf 
+  684  wg-quick down wg0 
+  685  wg-quick up wg0 
+  686  wg show
+  687  curl ipconfig.io
+  688  ping ipconfig.io
+  689  vim /etc/host
+  690  vim /etc/hosts
+  691  vim wg0.conf 
+  692  wg-quick down wg0 
+  693  wg-quick up wg0 
+  694  curl ipconfig.io
+  695  ping ipconfig.io
+  696  traceroute ipconfig.io
+  697  ip -br -c a
+  698  route -n
+  699  curl https://api.openai.com/... 
+  700  traceroute api.openai.com
+  701  ping api.openai.com
+  702  vim /etc/hosts
+  703  q!
+  704  vim /etc/hosts
+  705  vim wg0.conf 
+  706  wg-quick down wg0 
+  707  wg-quick up wg0 
+  708  traceroute api.openai.com
+  709  curl https://api.openai.com/
+  710  ip route get $(dig +short A api.openai.com | head -1)
+  711  sudo tcpdump -i wg0 -n &
+  712  curl -4 -m 10 https://api.openai.com/v1/models
+  713  dig +short A api.openai.com
+  714  ls
+  715  vim exclude-iran-routes.sh
+  716  ls
+  717  vim wg0.conf 
+  718  route -n
+  719  history 

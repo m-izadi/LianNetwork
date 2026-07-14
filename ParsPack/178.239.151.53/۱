@@ -1,0 +1,4 @@
+curl --location 'http://127.0.0.1:5021/chat' --header 'Content-Type: application/json' \
+--data '{
+  "message": " کوتاه بگو جی بلدی"
+}'

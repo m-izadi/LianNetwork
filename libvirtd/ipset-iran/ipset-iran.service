@@ -1,0 +1,13 @@
+[Unit]
+Description=Restore Iran IP Set
+After=network-online.target libvirtd.service
+Wants=network-online.target libvirtd.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 15
+ExecStart=/usr/local/bin/ipset-iran.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

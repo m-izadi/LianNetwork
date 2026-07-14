@@ -1,0 +1,13 @@
+[Unit]
+Description=Policy routing for Non-Iran Traffic
+After=network-online.target ipset-iran.service libvirtd.service
+Wants=network-online.target ipset-iran.service libvirtd.service
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/sleep 15
+ExecStart=/usr/local/bin/iran-routing.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
