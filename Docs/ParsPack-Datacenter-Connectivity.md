@@ -369,6 +369,6 @@ cron روی 130.185.75.96 (sync_tool)
 - [ ] نوع VPN ParsPack → دیتاسenتر (OpenVPN?)
 - [ ] `ip route get 8.8.8.8` و `ip route get 192.168.88.242` روی یک VPS ParsPack
 - [ ] `/ppp active print` روی میکروTik
-- [ ] به‌روزرسانی دیاگرام Draw.io
+- [x] دیاگرام draw.io → [weekilaw-network.drawio](./weekilaw-network.drawio)
 
 </div>

@@ -284,7 +284,8 @@ Service:  weegram (طبق README ریشهٔ پروژه)
 | مسیر | محتوا |
 |------|--------|
 | [Docs/interface.jpg](../../../Docs/interface.jpg) | اسکرین‌شات لیست interface میکروTik |
-| [Docs/Untitled Diagram.jpg](../../../Docs/Untitled Diagram.jpg) | دیاگرام معماری Draw.io |
+| [Docs/weekilaw-network.drawio](./weekilaw-network.drawio) | **دیاگرام draw.io** — قابل ویرایش، ۲ صفحه |
+| [Docs/Untitled Diagram.jpg](./Untitled Diagram.jpg) | دیاگرام قبلی (تصویر) |
 | [VMs/Datacenter/README.md](../../Datacenter/README.md) | IPها و سرویس‌های دیتاسنتر |
 | [libvirtd/iran-routing/iran-routing.sh](../../../libvirtd/iran-routing/iran-routing.sh) | split routing |
 | `1.backup` | backup binary میکروTik (نیاز به export `.rsc` برای جزئیات NAT) |

@@ -1,0 +1,210 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net" agent="LianNetwork" version="24.7.17" type="device">
+  <diagram id="weekilaw-network" name="Weekilaw Network">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;Weekilaw / LianNetwork — Network Architecture&lt;/b&gt;&lt;br/&gt;&lt;span style=&quot;font-size:10px&quot;&gt;Updated: France egress 202.133.88.39 active | Cloudz 144.172.117.7 inactive&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#1a1a2e;fontColor=#ffffff;strokeColor=#1a1a2e;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="520" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="internet" value="Users / Internet" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="cdn" value="&lt;b&gt;CDN Arvan&lt;/b&gt;&lt;br/&gt;app.weekilaw.com&lt;br/&gt;api.weekilaw.com (proxy)" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="240" y="100" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone_pp" value="ParsPack VPS (Iran)" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;swimlane;childLayout=stackLayout;horizontal=1;startSize=28;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="200" width="340" height="520" as="geometry"/>
+        </mxCell>
+        <mxCell id="pp_web" value="&lt;b&gt;weekilaw-com-web-ir&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;130.185.75.96&lt;/font&gt;&lt;br/&gt;app.weekilaw.com | payment | payment2 | service&lt;br/&gt;MongoDB :27017 | MinIO :9000 | ~/vpn | sync_tool" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="zone_pp">
+          <mxGeometry x="55" y="240" width="310" height="95" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="pp_back" value="&lt;b&gt;weekilaw-com-back-ir&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;178.239.151.33&lt;/font&gt;&lt;br/&gt;api | admin | test.weekilaw.com | api.weeshion.ir" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="zone_pp">
+          <mxGeometry x="55" y="345" width="310" height="80" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="pp_front" value="&lt;b&gt;weekilaw-com-front-ir&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;178.239.151.53&lt;/font&gt;&lt;br/&gt;front / lian site | virbr0 192.168.122.1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="zone_pp">
+          <mxGeometry x="55" y="435" width="310" height="75" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="pp_weegram" value="&lt;b&gt;iran-8-100 (weegram)&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;185.239.3.93&lt;/font&gt; | SSH :50022" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="zone_pp">
+          <mxGeometry x="55" y="520" width="310" height="55" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="pp_app_tu" value="&lt;b&gt;weekilaw.app-back-tu&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;91.228.186.133&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="zone_pp">
+          <mxGeometry x="55" y="585" width="310" height="55" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="pp_note" value="ui3-ir1 .. ui6-ir4 = MikroTik Winbox whitelist" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#f5f5f5;strokeColor=#999;fontSize=9;" vertex="1" parent="zone_pp">
+          <mxGeometry x="55" y="650" width="310" height="55" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="zone_dc" value="Datacenter (On-Premise)" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;swimlane;childLayout=stackLayout;horizontal=1;startSize=28;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=12;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="420" y="200" width="400" height="520" as="geometry"/>
+        </mxCell>
+        <mxCell id="mikrotik" value="&lt;b&gt;MikroTik RouterOS&lt;/b&gt;  &lt;font face=&quot;Courier New&quot;&gt;78.110.124.179&lt;/font&gt;&lt;br/&gt;&lt;br/&gt;&lt;b&gt;WAN:&lt;/b&gt; ether1-radio (active) | ether2-fiber | ether3-starlink (down)&lt;br/&gt;&lt;b&gt;Servers:&lt;/b&gt; ether9-hp | ether10-supermicro | ether6-tplink_sw&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Bridges:&lt;/b&gt; BR-TRUNK, br-radio, br-fiber, br-starlink, br-servers, br-vpn, br-ovpn&lt;br/&gt;&lt;b&gt;VLANs:&lt;/b&gt; vlan10-radio, vlan11-vpn, vlan12-fiber, vlan13-starlink,&lt;br/&gt;vlan15-servers, vlan16-IPMI, vlan17&lt;br/&gt;&lt;br/&gt;&lt;b&gt;VPN:&lt;/b&gt; ovpn-server (ParsPack LAN) | SSTP hs (active) | L2TP tun2-L2 (active)&lt;br/&gt;&lt;b&gt;Disabled:&lt;/b&gt; eoip-hassani*, ipip-tunnel1" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacingLeft=10;" vertex="1" parent="zone_dc">
+          <mxGeometry x="435" y="240" width="370" height="200" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="dc_subnets" value="&lt;b&gt;Private Subnets&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;192.168.90.0/24&lt;/font&gt; MikroTik mgmt (Winbox .2 .3 .200)&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;192.168.88.0/24&lt;/font&gt; VM LAN (e.g. .242) | &lt;font face=&quot;Courier New&quot;&gt;192.168.122.0/24&lt;/font&gt; libvirt GW &lt;font face=&quot;Courier New&quot;&gt;.254&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#fff2cc;strokeColor=#d6b656;align=left;spacingLeft=8;fontSize=10;" vertex="1" parent="zone_dc">
+          <mxGeometry x="435" y="455" width="370" height="70" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="dc_hosts" value="&lt;b&gt;Public IPs / Services&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;78.110.124.181&lt;/font&gt; weekilaw.app intl (video, API, Redis, Planka)&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;78.110.124.178&lt;/font&gt; SSH :50022 | &lt;font face=&quot;Courier New&quot;&gt;78.110.124.182&lt;/font&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;185.143.234.235&lt;/font&gt; weekilaw.app-front-ir&lt;br/&gt;VMs: vm00-vm05, vm-mik (RouterOS KVM), vm-test, win10-hassani" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#dae8fc;strokeColor=#6c8ebf;align=left;spacingLeft=8;fontSize=10;" vertex="1" parent="zone_dc">
+          <mxGeometry x="435" y="535" width="370" height="90" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="dc_routing" value="&lt;b&gt;Split Routing (hypervisor hosts)&lt;/b&gt;&lt;br/&gt;ipset-iran + iran-routing (systemd)&lt;br/&gt;Iran dest → direct | Non-Iran → mark → table iran-bypass → GW 192.168.122.254" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#d5e8d4;strokeColor=#82b366;align=left;spacingLeft=8;fontSize=10;" vertex="1" parent="zone_dc">
+          <mxGeometry x="435" y="635" width="370" height="70" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="zone_fr" value="France VPS — Egress ACTIVE" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;swimlane;startSize=24;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="860" y="200" width="280" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="fr2" value="&lt;b&gt;France 2 (link2)&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;202.133.88.39&lt;/font&gt;&lt;br/&gt;curl ipconfig.io on ALL machines" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="zone_fr">
+          <mxGeometry x="875" y="240" width="250" height="55" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="fr1" value="&lt;b&gt;France 1 (link1)&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;202.133.88.239&lt;/font&gt; — backup" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="zone_fr">
+          <mxGeometry x="875" y="305" width="250" height="45" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="fr_inet" value="Unfiltered Internet (NAT egress)" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="zone_fr">
+          <mxGeometry x="875" y="360" width="250" height="40" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="zone_cz" value="Cloudz — PLANNED (inactive)" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;swimlane;startSize=24;fillColor=#f5f5f5;strokeColor=#999999;fontStyle=1;fontSize=11;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="420" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="cz_egress" value="&lt;b&gt;weekilaw-egress-gw-01&lt;/b&gt;&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;144.172.117.7&lt;/font&gt; | wg0 &lt;font face=&quot;Courier New&quot;&gt;10.200.0.1/32&lt;/font&gt;&lt;br/&gt;No production traffic yet" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#f5f5f5;strokeColor=#999999;dashed=1;" vertex="1" parent="zone_cz">
+          <mxGeometry x="875" y="460" width="250" height="65" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="zone_other" value="Other" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;swimlane;startSize=24;fillColor=#f5f5f5;strokeColor=#999999;fontStyle=1;fontSize=11;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="860" y="570" width="280" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="de_ui" value="Germany ui2 (Winbox only)&lt;br/&gt;&lt;font face=&quot;Courier New&quot;&gt;185.215.244.112&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fillColor=#f5f5f5;strokeColor=#999;" vertex="1" parent="zone_other">
+          <mxGeometry x="875" y="610" width="250" height="45" as="geometry" relative="0"/>
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Traffic Flows (confirmed + likely)&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;① User → CDN Arvan → web VPS (130.185.75.96) → backend API (178.239.151.33)&lt;br/&gt;② ParsPack ↔ Datacenter private (192.168.88.x): OpenVPN via MikroTik ovpn-server (~/vpn on web)&lt;br/&gt;③ International traffic (all machines): → MikroTik SSTP/L2TP → France 2 (202.133.88.39) → Internet&lt;br/&gt;④ Datacenter hosts: iran-routing sends non-Iran traffic to MikroTik VM at 192.168.122.254&lt;br/&gt;⑤ Backup sync_tool (web) → private IP datacenter via VPN tunnel&lt;br/&gt;⑥ Cloudz 144.172.117.7: future WireGuard egress — NOT in use&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Open in draw.io:&lt;/b&gt; File → Open → weekilaw-network.drawio | Edit freely | Export PNG/SVG" style="rounded=1;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;fillColor=#fff2cc;strokeColor=#d6b656;align=left;verticalAlign=top;spacingLeft=8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="740" width="1100" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="HTTPS" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;" edge="1" parent="1" source="internet" target="cdn">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" value="proxy" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;" edge="1" parent="1" source="cdn" target="pp_web">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" value="API calls" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#9673a6;" edge="1" parent="1" source="pp_web" target="pp_back">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="OpenVPN (LAN access)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#0066CC;fontStyle=1;" edge="1" parent="1" source="pp_web" target="mikrotik">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" value="OpenVPN?" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#0066CC;dashed=1;" edge="1" parent="1" source="pp_back" target="mikrotik">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" value="OpenVPN?" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#0066CC;dashed=1;" edge="1" parent="1" source="pp_front" target="mikrotik">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" value="192.168.122.254 iran-bypass" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#82b366;" edge="1" parent="1" source="dc_routing" target="mikrotik">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e8" value="SSTP hs L2TP tun2-L2 route2fr" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#009900;fontStyle=1;strokeWidth=2;" edge="1" parent="1" source="mikrotik" target="fr2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e9" value="NAT" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#009900;strokeWidth=2;" edge="1" parent="1" source="fr2" target="fr_inet">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e10" value="sync_tool backup" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#9673a6;dashed=1;" edge="1" parent="1" source="pp_web" target="dc_subnets">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e11" value="backup link" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#999999;dashed=1;" edge="1" parent="1" source="mikrotik" target="fr1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e12" value="future" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#999999;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="zone_cz" target="fr_inet">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e13" value="intl traffic (via MikroTik?)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#009900;dashed=1;" edge="1" parent="1" source="pp_web" target="fr2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e14" value="intl traffic" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;fontSize=10;endArrow=classic;strokeColor=#009900;dashed=1;" edge="1" parent="1" source="dc_hosts" target="fr2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="page2-reference" name="Reference Tables">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="p2_title" value="&lt;b&gt;Page 2 — Reference Tables (IPs, Ports, Subnets, MikroTik Interfaces)&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;fillColor=#f5f5f5;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1100" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_ip" value="&lt;b&gt;IP Address Map&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;table cellpadding=&quot;2&quot; cellspacing=&quot;0&quot; style=&quot;font-size:10px;width:100%&quot;&gt;
+&lt;tr style=&quot;background:#eee&quot;&gt;&lt;td&gt;&lt;b&gt;IP&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Host&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Role&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;130.185.75.96&lt;/td&gt;&lt;td&gt;weekilaw-com-web-ir&lt;/td&gt;&lt;td&gt;app, payment, mongo, minio, ~/vpn&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;178.239.151.33&lt;/td&gt;&lt;td&gt;weekilaw-com-back-ir&lt;/td&gt;&lt;td&gt;api, admin, test, weeshion&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;178.239.151.53&lt;/td&gt;&lt;td&gt;weekilaw-com-front-ir&lt;/td&gt;&lt;td&gt;front, lian, hypervisor&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;185.239.3.93&lt;/td&gt;&lt;td&gt;iran-8-100&lt;/td&gt;&lt;td&gt;weegram | SSH :50022&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;91.228.186.133&lt;/td&gt;&lt;td&gt;weekilaw.app-back-tu&lt;/td&gt;&lt;td&gt;app backend TU&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;78.110.124.179&lt;/td&gt;&lt;td&gt;MikroTik&lt;/td&gt;&lt;td&gt;RouterOS gateway&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;78.110.124.181&lt;/td&gt;&lt;td&gt;datacenter&lt;/td&gt;&lt;td&gt;weekilaw.app intl, video, Planka&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;78.110.124.178&lt;/td&gt;&lt;td&gt;datacenter&lt;/td&gt;&lt;td&gt;SSH :50022&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;78.110.124.182&lt;/td&gt;&lt;td&gt;datacenter&lt;/td&gt;&lt;td&gt;TBD&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;185.143.234.235&lt;/td&gt;&lt;td&gt;app-front-ir&lt;/td&gt;&lt;td&gt;weekilaw.app front&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style=&quot;background:#d5e8d4&quot;&gt;&lt;td&gt;202.133.88.39&lt;/td&gt;&lt;td&gt;France 2&lt;/td&gt;&lt;td&gt;&lt;b&gt;ACTIVE egress&lt;/b&gt; (curl ipconfig.io)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;202.133.88.239&lt;/td&gt;&lt;td&gt;France 1&lt;/td&gt;&lt;td&gt;backup VPN link&lt;/td&gt;&lt;/tr&gt;
+&lt;tr style=&quot;background:#f5f5f5&quot;&gt;&lt;td&gt;144.172.117.7&lt;/td&gt;&lt;td&gt;Cloudz egress&lt;/td&gt;&lt;td&gt;INACTIVE (future WG)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;185.215.244.112&lt;/td&gt;&lt;td&gt;Germany&lt;/td&gt;&lt;td&gt;ui2 Winbox whitelist only&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;fillColor=#ffffff;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="540" height="320" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_ports" value="&lt;b&gt;Key Ports (weekilaw.com stack)&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;table cellpadding=&quot;2&quot; style=&quot;font-size:10px;width:100%&quot;&gt;
+&lt;tr style=&quot;background:#eee&quot;&gt;&lt;td&gt;&lt;b&gt;Port&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Service&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Host&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;80, 443, 8080&lt;/td&gt;&lt;td&gt;nginx / web&lt;/td&gt;&lt;td&gt;web VPS, CDN Arvan&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;3000&lt;/td&gt;&lt;td&gt;backend main&lt;/td&gt;&lt;td&gt;178.239.151.33&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;3001, 3002&lt;/td&gt;&lt;td&gt;payment v1/v2&lt;/td&gt;&lt;td&gt;130.185.75.96&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;4000&lt;/td&gt;&lt;td&gt;service / admin&lt;/td&gt;&lt;td&gt;web / backend&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;5000&lt;/td&gt;&lt;td&gt;backend test&lt;/td&gt;&lt;td&gt;178.239.151.33&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;27017&lt;/td&gt;&lt;td&gt;MongoDB&lt;/td&gt;&lt;td&gt;130.185.75.96&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;9000-9001&lt;/td&gt;&lt;td&gt;MinIO&lt;/td&gt;&lt;td&gt;130.185.75.96&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;fillColor=#ffffff;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="80" width="540" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_subnet" value="&lt;b&gt;Private Subnets&lt;/b&gt;&lt;br/&gt;
+192.168.90.0/24 — MikroTik mgmt | 192.168.88.0/24 — VM LAN | 192.168.122.0/24 — libvirt (GW .254 on DC)&lt;br/&gt;
+172.17-25.0.0/16 — Docker (local per VPS) | 10.200.0.x — WireGuard Cloudz (inactive)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;fillColor=#fff2cc;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="300" width="540" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_mik" value="&lt;b&gt;MikroTik Interfaces (from backup + screenshot)&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+&lt;table cellpadding=&quot;2&quot; style=&quot;font-size:10px;width:100%&quot;&gt;
+&lt;tr style=&quot;background:#eee&quot;&gt;&lt;td&gt;&lt;b&gt;Interface&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Type&lt;/b&gt;&lt;/td&gt;&lt;td&gt;&lt;b&gt;Status / Role&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;ether1-radio&lt;/td&gt;&lt;td&gt;Ethernet&lt;/td&gt;&lt;td&gt;Running — WAN radio (high traffic)&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;ether2-fiber&lt;/td&gt;&lt;td&gt;Ethernet&lt;/td&gt;&lt;td&gt;Running — WAN fiber&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;ether3-starlink&lt;/td&gt;&lt;td&gt;Ethernet&lt;/td&gt;&lt;td&gt;Down — WAN Starlink&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;ether6-tplink_sw&lt;/td&gt;&lt;td&gt;Ethernet&lt;/td&gt;&lt;td&gt;Running — TP-Link switch&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;ether9-hp&lt;/td&gt;&lt;td&gt;Ethernet&lt;/td&gt;&lt;td&gt;Running — HP server / VMs&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;ether10-supermicro&lt;/td&gt;&lt;td&gt;Ethernet&lt;/td&gt;&lt;td&gt;Running — SuperMicro&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;BR-TRUNK + vlan10-17&lt;/td&gt;&lt;td&gt;Bridge/VLAN&lt;/td&gt;&lt;td&gt;Trunk: radio, vpn, fiber, starlink, servers, IPMI&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;br-radio/fiber/starlink&lt;/td&gt;&lt;td&gt;Bridge&lt;/td&gt;&lt;td&gt;Per-WAN policy routing&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;br-servers, br-vpn, br-ovpn&lt;/td&gt;&lt;td&gt;Bridge&lt;/td&gt;&lt;td&gt;Servers + VPN traffic&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;ovpn-server&lt;/td&gt;&lt;td&gt;OpenVPN&lt;/td&gt;&lt;td&gt;ParsPack ↔ LAN access&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;hs&lt;/td&gt;&lt;td&gt;SSTP client&lt;/td&gt;&lt;td&gt;Active → France&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;tun2-L2&lt;/td&gt;&lt;td&gt;L2TP client&lt;/td&gt;&lt;td&gt;Active → France&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;eoip-hassani*&lt;/td&gt;&lt;td&gt;EoIP&lt;/td&gt;&lt;td&gt;Disabled&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;fillColor=#dae8fc;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="420" width="540" height="380" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_flow" value="&lt;b&gt;Traffic Flow Summary&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;
+1. Production web: User → CDN Arvan → 130.185.75.96 → API 178.239.151.33&lt;br/&gt;
+2. Private access: ParsPack → OpenVPN → MikroTik → 192.168.88.x&lt;br/&gt;
+3. International: Any host → (iran-routing?) → MikroTik → SSTP/L2TP → 202.133.88.39 → Internet&lt;br/&gt;
+4. Iranian destinations: Direct via Iran ISP (ParsPack or radio/fiber)&lt;br/&gt;
+5. Backup: sync_tool on web → private datacenter IP via VPN&lt;br/&gt;
+6. Cloudz 144.172.117.7: planned, not active" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;fillColor=#d5e8d4;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="420" width="540" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2_todo" value="&lt;b&gt;Open Items (update diagram when confirmed)&lt;/b&gt;&lt;br/&gt;
+[ ] SSTP vs L2TP — which carries egress to France?&lt;br/&gt;
+[ ] ParsPack intl: direct to France or via MikroTik first?&lt;br/&gt;
+[ ] Exact OpenVPN push routes from MikroTik&lt;br/&gt;
+[ ] NAT rules per public IP (need MikroTik .rsc export)&lt;br/&gt;
+[ ] Migrate egress to Cloudz when ready" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=6;fillColor=#f8cecc;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="600" y="640" width="540" height="160" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
