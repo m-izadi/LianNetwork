@@ -191,12 +191,15 @@ Service:  weegram (طبق README ریشهٔ پروژه)
 
 **VPS VPN خارجی (README پروژه):**
 
-| محل | IP |
-|-----|-----|
-| USA Utah | `144.172.91.114`, `144.172.117.7` (+ چند IP اضافه) |
-| France 1 | `202.133.88.239` |
-| France 2 | `202.133.88.39` |
-| Germany (ui2) | `185.215.244.112` |
+| محل | IP | وضعیت |
+|-----|-----|--------|
+| **France 2** | `202.133.88.39` | **egress فعال** — `curl ipconfig.io` روی همهٔ ماشین‌ها |
+| France 1 | `202.133.88.239` | لینک پشتیبان |
+| Cloudz egress | `144.172.117.7` | ساخته شده، **ترافیک ندارد** |
+| USA Utah | `144.172.91.114` | VPN |
+| Germany (ui2) | `185.215.244.112` | Winbox whitelist |
+
+جزئیات: [ParsPack-Datacenter-Connectivity.md](./ParsPack-Datacenter-Connectivity.md)
 
 ---
 

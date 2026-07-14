@@ -4,7 +4,8 @@
 
 این سند توضیح می‌دهد **چطور VPSهای ParsPack به IPهای private دیتاسنتر دسترسی دارند** و **چرا اینترنت بین‌الملل «بدون فیلتر» به نظر می‌رسد**.
 
-> وضعیت: بر اساس READMEهای interface، backup میکروTik، History سرور `178.239.151.53`، پوشهٔ `vpn` روی web، و WireGuard روی Cloudz — **بخشی تأیید شده، بخشی فرضیه** تا وقتی دستورات پایین را بزنید.
+> **به‌روزرسانی (تأیید عملی):** `curl ipconfig.io` روی همهٔ ماشین‌ها → **`202.133.88.39`** (France 2).  
+> Cloudz `144.172.117.7` **هنوز در production نیست** — ساخته شده ولی ترافیکی رویش نیست.
 
 ---
 
@@ -13,7 +14,7 @@
 VPSهای ParsPack روی **اینترنت عمومی** هستند، ولی با **تونل VPN (site-to-site یا client-to-site)** به LAN دیتاسنتر وصل شده‌اند.  
 میکروTik مسیر subnetهای داخلی (`192.168.88.0/24` و …) را به کلاینت‌های VPN می‌دهد و فایروال rule «Allow VPN to rest of LAN» اجازهٔ forward می‌دهد.
 
-**اینترنت بین‌الملل** یا مستقیم از ParsPack (پلن ترافیک بین‌الملل) می‌آید، یا از VPN به **gateway خروجی** (مثلاً Cloudz `144.172.117.7` با `wg0` / `10.200.0.1`).
+**اینترنت بین‌الملل** از تونل VPN به **VPS فرانسه `202.133.88.39`** می‌رود — `curl ipconfig.io` روی همهٔ ماشین‌ها همین IP را نشان می‌دهد. Cloudz `144.172.117.7` فعلاً استفاده نمی‌شود.
 
 ---
 
@@ -30,44 +31,43 @@ VPSهای ParsPack روی **اینترنت عمومی** هستند، ولی با
 
 ---
 
-## ۳. معماری (بر اساس شواهد موجود)
+## ۳. معماری تأییدشده (خروج بین‌الملل)
 
 ```
-                         ┌──────────────────────────────────────┐
-                         │           دیتاسنتر فیزیکی             │
-                         │                                      │
-                         │  میکروTik (78.110.124.179)           │
-                         │    ├─ ovpn-server / br-ovpn          │
-                         │    ├─ SSTP client (hs) ───────┐      │
-                         │    ├─ L2TP client (tun2-L2) ──┤      │
-                         │    └─ vlan11-vpn / br-vpn     │      │
-                         │                               │      │
-                         │  192.168.90.0/24  مدیریت      │      │
-                         │  192.168.88.0/24  VM/LAN      │      │
-                         │  192.168.122.254  GW میکروTik │      │
-                         │       (روی virbr0 hypervisor) │      │
-                         └───────────────┬───────────────┘      │
-                                         │                      │
-                            تونل VPN ◄───┴───► (OpenVPN / WG / L2TP)
-                                         │
-         ┌───────────────────────────────┼───────────────────────────────┐
-         │                               │                               │
-         ▼                               ▼                               ▼
-  130.185.75.96                   178.239.151.33                  178.239.151.53
-  weekilaw-com-web-ir             weekilaw-com-back-ir            weekilaw-com-front-ir
-  ~/vpn/  (احتمال OVPN client)    virbr0 + vnet0                  wg0? + iran-routing
-  sync_tool → بکاپ به سرور شرکت
-         │                               │                               │
-         └───────────────────────────────┴───────────────────────────────┘
-                                         │
-                          اینترنت بین‌الملل (مستقیم ParsPack یا via VPN)
-                                         │
-                                         ▼
-                         ┌───────────────────────────────┐
-                         │ Cloudz weekilaw-egress-gw-01  │
-                         │ 144.172.117.7                 │
-                         │ wg0 → 10.200.0.1/32           │
-                         └───────────────────────────────┘
+  ┌──────────────── ParsPack VPS ────────────────┐     ┌─── دیتاسنتر ───────────────┐
+  │ 130.185.75.96  web                           │     │ 78.110.124.181  app-back    │
+  │ 178.239.151.33 backend                      │     │ 78.110.124.178  …           │
+  │ 178.239.151.53 front (+ iran-routing)       │     │ 192.168.88.0/24  VM LAN     │
+  │ 91.228.186.133 app-back-tu                   │     │ 192.168.122.254  GW میکروTik│
+  │ 185.239.3.93   weegram                       │     └──────────────┬─────────────┘
+  └──────────────────────┬───────────────────────┘                    │
+                         │                                            │
+            VPN داخلی (OVPN?)              iran-routing / ipset-iran   │
+            برای 192.168.x.x               mark ترافیک غیرایرانی ──────┤
+                         │                                            │
+                         └────────────────────┬───────────────────────┘
+                                              │
+                                              ▼
+                         ┌────────────────────────────────────────────┐
+                         │  میکروTik (78.110.124.179)                 │
+                         │    ovpn-server  ←→  ParsPack (LAN access)  │
+                         │    SSTP client (hs)      ──┐                 │
+                         │    L2TP client (tun2-L2) ──┤  route2fr       │
+                         └──────────────────────────┼─────────────────┘
+                                                    │
+                                                    ▼
+                         ┌────────────────────────────────────────────┐
+                         │  🇫🇷 VPS France 2  —  egress فعلی         │
+                         │  202.133.88.39  (curl ipconfig.io)         │
+                         │  France 1: 202.133.88.239 (پشتیبان/link1)  │
+                         └────────────────────┬───────────────────────┘
+                                              │
+                                              ▼
+                                    اینترنت بدون فیلتر
+
+  ┌─ آینده (غیرفعال) ────────────────────────────────────────────────┐
+  │  Cloudz weekilaw-egress-gw-01  144.172.117.7  —  ترافیک ندارد    │
+  └──────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -91,37 +91,40 @@ VPSهای ParsPack روی **اینترنت عمومی** هستند، ولی با
 4. میکروTik با **push route** subnet `192.168.88.0/24` (و شاید `192.168.90.0/24`) را به client می‌دهد
 5. ping به `192.168.88.242` (که در History سرور `178.239.151.53` دیده شده) از همین مسیر است
 
-### ۴.۲. WireGuard — برای خروجی بین‌الملل
+### ۴.۲. VPS فرانسه — **خروج بین‌الملل فعال (تأیید شده)**
 
-**شواهد:**
+| سرور | IP | نقش |
+|------|-----|-----|
+| **France 2** | `202.133.88.39` | **egress فعلی** — `curl ipconfig.io` روی همهٔ ماشین‌ها |
+| France 1 | `202.133.88.239` | لینک پشتیبان (`link1`) |
 
-- Cloudz `144.172.117.7`: `wg0` با `10.200.0.1/32`
-- History `178.239.151.53`: نصب و تنظیم `/etc/wireguard/wg0.conf`، v`exclude-iran-routes.sh`
-- تست `curl api.openai.com`، `traceroute` از طریق `wg0`
+**تست تأیید:** `curl ipconfig.io` → `202.133.88.39`
 
-**نحوهٔ کار (معمول):**
+**نحوهٔ کار (محتمل):**
 
-- peerهای ParsPack/دیتاسنتر به hub Cloudz وصل می‌شوند
-- `AllowedIPs` شامل `0.0.0.0/0` یا فقط prefixهای خارج → ترافیک غیرایرانی از تونل
-- یا split: ایران مستقیم، خارج از WG
+1. ترافیک **غیرایرانی** mark/route می‌شود (`iran-routing` + `ipset-iran` یا policy میکروTik)
+2. از میکروTik از تونل **SSTP (`hs`)** یا **L2TP (`tun2-L2`)** به VPS فرانسه می‌رود
+3. VPS فرانسه NAT → اینترنت با IP `202.133.88.39`
 
-### ۴.۳. SSTP / L2TP — میکروTik به عنوان client
+### ۴.۳. Cloudz / WireGuard — **برنامهٔ آینده، فعلاً خاموش**
 
-**شواهد (از backup + interface):**
+| مورد | وضعیت |
+|------|--------|
+| `144.172.117.7` | ساخته شده، **ترافیک production ندارد** |
+| `wg0` = `10.200.0.1/32` | پیکربندی اولیه — جایگزین egress فعلی **نشده** |
 
-- `hs` = SSTP Client **فعال**
-- `tun2-L2` = L2TP Client **فعال**
-- VPS فرانسه: `202.133.88.239`, `202.133.88.39` (README: France for vpn)
+### ۴.۴. SSTP / L2TP — لینک میکروTik → France
 
-**نقش احتمالی:** میکروTik برای **خروج بین‌الملل دیتاسنتر** به VPN خارج وصل می‌شود (نه لزوماً ParsPack → دیتاسenتر).  
-اما ممکن است hub مشترک باشد.
+- `hs` (SSTP) و `tun2-L2` (L2TP) روی میکروTik **فعال**
+- routing table: `route2fr`
+- egress تأییدشده = `202.133.88.39` = France 2 — همهٔ ماشین‌ها (ParsPack + دیتاسenتر) همین را در `curl ipconfig.io` می‌بینند
 
-### ۴.۴. EoIP — فعلاً غیرفعال
+### ۴.۵. EoIP — فعلاً غیرفعال
 
 - `eoip-hassaniRouter`, `eoip-hassaniIDC` در interface list **disabled (X)**
 - اگر فعال بود L2 bridge مستقیم می‌داد؛ **الان نقش ندارد**
 
-### ۴.۵. `192.168.122.0/24` روی ParsPack ≠ دیتاسنتر
+### ۴.۶. `192.168.122.0/24` روی ParsPack ≠ دیتاسنتر
 
 روی **هر** VPS ParsPack:
 
@@ -142,23 +145,28 @@ vnet0     (VM محلی libvirt)
 | `192.168.90.0/24` | مدیریت میکروTik (Winbox از `.2`, `.3`, `.200`) | backup میکروTik |
 | `192.168.88.0/24` | LAN/VM دیتاسنتر | History: `ping 192.168.88.242`؛ `ipset-iran` exclude |
 | `192.168.122.0/24` | libvirt default؛ GW `.254` = میکروTik VM | `iran-routing.sh` |
-| `10.200.0.0/…` | WireGuard mesh (Cloudz hub) | `weekilaw-egress-gw-01` |
+| `10.200.0.0/…` | WireGuard (Cloudz — **غیرفعال**) | `weekilaw-egress-gw-01` |
+| `202.133.88.39` | NAT egress بین‌الملل فعلی | `curl ipconfig.io` |
 | `172.17–25.0.0/16` | Docker bridge (محلی هر VPS) | README web |
 
 ---
 
-## ۶. اینترنت «بدون فیلتر» ParsPack — چرا؟
+## ۶. اینترنت «بدون فیلتر» — چرا `202.133.88.39`؟
 
-چند سناریو **همزمان** ممکن است:
+**تأیید شده:** همهٔ ماشین‌ها (ParsPack + دیتاسenتر) با `curl ipconfig.io` IP فرانسه را می‌بینند.
 
-| سناریو | علامت | توضیح |
-|--------|-------|-------|
-| **A. پلن ParsPack** | `curl ifconfig.me` = IP ParsPack | ترافیک بین‌الملل روی VPS بدون فیلتر ISP ایران |
-| **B. WireGuard به Cloudz** | `curl ifconfig.me` = `144.172.x.x` | default یا route selective از WG |
-| **C. VPN به میکروTik + multi-WAN** | traceroute از radio/fiber | خروج از لینک دیتاسنتر |
-| **D. split routing (`ir.zone`)** | `ip rule` / `ip route table` | ایران مستقیم، خارج از تونل |
+| لایه | رفتار |
+|------|--------|
+| **مقصد ایرانی** | مستقیم از اینترنت ایران (ParsPack یا radio/fiber دیتاسenتر) |
+| **مقصد خارجی** | از تونل VPN → VPS France 2 → NAT → اینترنت آزاد |
+| **Cloudz** | هنوز در این مسیر **نیست** |
 
-روی `iran-8-100` فایل **`ir.zone`** دیده شده → احتمال split routing شبیه دیتاسenتر.
+**split routing** (روی hostهای libvirt):
+
+- `ipset-iran` — لیست IPهای ایران
+- `iran-routing` — ترافیک `!iran` → mark → table `iran-bypass` → gateway `192.168.122.254` (میکروTik VM) → France
+
+روی ParsPack احتمالاً همان منطق (یا VPN مستقیم به France / via میکروTik) اعمال شده — با دستور `ip route get 8.8.8.8` روی هر VPS دقیق می‌شود.
 
 ---
 
@@ -188,12 +196,20 @@ vnet0     (VM محلی libvirt)
 | `eth0` | `178.239.151.53/24` |
 | `virbr0` | `192.168.122.1/24` |
 
-### `144.172.117.7` — Cloudz egress
+### `144.172.117.7` — Cloudz egress (**غیرفعال در production**)
 
-| Interface | IP |
-|-----------|-----|
-| `enp0s7` | چند IP روی یک NIC |
-| `wg0` | `10.200.0.1/32` |
+| Interface | IP | وضعیت |
+|-----------|-----|--------|
+| `enp0s7` | چند IP روی یک NIC | آماده |
+| `wg0` | `10.200.0.1/32` | پیکربندی اولیه — **ترافیک ندارد** |
+
+### `202.133.88.39` — France 2 egress (**فعال**)
+
+| مورد | مقدار |
+|------|--------|
+| IP egress | `202.133.88.39` |
+| تست | `curl ipconfig.io` روی همهٔ ماشین‌ها |
+| نقش | NAT خروجی بین‌الملل کل زیرساخت |
 
 ---
 
@@ -214,10 +230,10 @@ ip route get 192.168.88.242
 ip route get 192.168.90.1
 traceroute -n 192.168.88.242
 
-# اینترنت بین‌الملل از کجا خارج می‌شود
-curl -4 --max-time 10 ifconfig.me ; echo
+# اینترنت بین‌الملل از کجا خارج می‌شود (انتظار: 202.133.88.39)
+curl -4 --max-time 10 ipconfig.io ; echo
+ip route get 8.8.8.8
 traceroute -n 8.8.8.8
-traceroute -n 1.1.1.1
 
 # VPN clientها
 systemctl list-units --type=service | grep -iE 'wg|openvpn|vpn|strongswan|xl2tp'
@@ -279,27 +295,36 @@ virsh domifaddr --source agent <vm-name> 2>/dev/null
 iptables -t mangle -L -n -v | head -20
 ```
 
-### ۸.۴. روی Cloudz egress (`144.172.117.7`)
+### ۸.۴. روی VPS France 2 (`202.133.88.39`) — **اولویت بالا**
+
+```bash
+# سرویس VPN (SSTP/L2TP/OpenVPN server?)
+ss -tulnp
+ip a
+iptables -t nat -L -n -v | head -30
+# sessionهای فعال
+cat /var/log/syslog | tail -50
+```
+
+### ۸.۵. روی Cloudz (`144.172.117.7`) — فقط برای آینده
 
 ```bash
 wg show
-ip route
-iptables -t nat -L -n -v | head -20
+# انتظار: peer فعال ندارد یا ترافیک صفر
 ```
 
 ---
 
-## ۹. چک‌لیست تأیید فرضیه
+## ۹. چک‌لیست — وضعیت فعلی
 
-بعد از اجرای دستورات، این جدول را پر کنید:
-
-| تست | نتیجهٔ مورد انتظار اگر OVPN است | نتیجهٔ مورد انتظار اگر WG است |
-|-----|----------------------------------|-------------------------------|
-| `ip a` | interface `tun0` یا `tap0` | interface `wg0` |
-| `ip route get 192.168.88.x` | dev `tun0` via VPN | dev `wg0` |
-| `curl ifconfig.me` | IP ParsPack یا egress | IP Cloudz (`144.172.x`) |
-| میکروTik `/ppp active` | session برای IP ParsPack | — |
-| `wg show` روی Cloudz | — | peer با IP ParsPack |
+| تست | نتیجهٔ تأییدشده | هنوز باز |
+|-----|-----------------|----------|
+| `curl ipconfig.io` | **`202.133.88.39`** (France) | — |
+| Cloudz egress | **غیرفعال** | — |
+| ParsPack → private LAN | ping کار می‌کند | نوع VPN (OVPN?) |
+| `ip route get 8.8.8.8` روی ParsPack | — | dev/interface دقیق |
+| میکروTik `/ppp active` | — | کدام tunnel به France |
+| France VPS | NAT egress | SSTP vs L2TP vs OVPN |
 
 ---
 
@@ -336,12 +361,14 @@ cron روی 130.185.75.96 (sync_tool)
 
 ---
 
-## ۱۳. TODO بعد از دریافت خروجی دستورات
+## ۱۳. TODO
 
-- [ ] نوع VPN دقیق (OpenVPN / WireGuard / هر دو)
-- [ ] subnetهای push شده از میکروTik
-- [ ] IP private دقیق مقصد بکاپ sync_tool
-- [ ] مسیر خروج بین‌الملل (ParsPack مستقیم vs Cloudz)
-- [ ] به‌روزرسانی دیاگرام Draw.io با لینک VPN
+- [x] مسیر egress بین‌الملل → **`202.133.88.39`** (France 2)
+- [x] Cloudz `144.172.117.7` → **غیرفعال**
+- [ ] نوع تونل میکروTik → France (SSTP `hs` vs L2TP `tun2-L2`)
+- [ ] نوع VPN ParsPack → دیتاسenتر (OpenVPN?)
+- [ ] `ip route get 8.8.8.8` و `ip route get 192.168.88.242` روی یک VPS ParsPack
+- [ ] `/ppp active print` روی میکروTik
+- [ ] به‌روزرسانی دیاگرام Draw.io
 
 </div>
