@@ -51,8 +51,10 @@
                     └───────────────────────┘
 ```
 
-**نکتهٔ مهم:** VPSهای ParsPack **پشت میکروتیک دیتاسنتر نیستند**. مستقیم روی اینترنت هستند.  
-میکروتیک فقط IP آن‌ها را در لیست «مجاز برای UI» (`ui3-ir1` … `ui6-ir4`) دارد تا ادمین‌ها از راه دور Winbox بزنند.
+**نکتهٔ مهم:** VPSهای ParsPack **پشت NAT میکروتیک نیستند** (IP عمومی مستقل دارند)، ولی با **VPN** به subnetهای private دیتاسنتر (`192.168.88.0/24` و …) route دارند و ping/بکاپ مستقیم ممکن است.  
+جزئیات: [ParsPack-Datacenter-Connectivity.md](./ParsPack-Datacenter-Connectivity.md)
+
+میکروتیک IP آن‌ها را در `ui3-ir1` … `ui6-ir4` هم برای **Winbox** whitelist کرده.
 
 ---
 
@@ -283,6 +285,7 @@ Service:  weegram (طبق README ریشهٔ پروژه)
 | [VMs/Datacenter/README.md](../../Datacenter/README.md) | IPها و سرویس‌های دیتاسنتر |
 | [libvirtd/iran-routing/iran-routing.sh](../../../libvirtd/iran-routing/iran-routing.sh) | split routing |
 | `1.backup` | backup binary میکروTik (نیاز به export `.rsc` برای جزئیات NAT) |
+| [ParsPack-Datacenter-Connectivity.md](./ParsPack-Datacenter-Connectivity.md) | VPN ParsPack ↔ دیتاسنتر + اینترنت بین‌الملل |
 
 ---
 
