@@ -353,7 +353,8 @@ cron روی 130.185.75.96 (sync_tool)
 
 | مسیر | محتوا |
 |------|--------|
-| [Docs/README.md](./README.md) | معماری کلی (نیاز به به‌روزرسانی بخش «دو دنیا») |
+| [Routing-And-Tunnels-Guide.md](./Routing-And-Tunnels-Guide.md) | inspect کانفیگ، virbr0، تغییر France |
+| [Docs/README.md](./README.md) | معماری کلی |
 | [VMs/ParsPack/weekilaw-com-web-ir/README.md](../VMs/ParsPack/weekilaw-com-web-ir/README.md) | web + `~/vpn` |
 | [VMs/Cloudz/weekilaw-egress-gw-01/README.md](../VMs/Cloudz/weekilaw-egress-gw-01/README.md) | WireGuard hub |
 | [libvirtd/iran-routing/iran-routing.sh](../libvirtd/iran-routing/iran-routing.sh) | split routing دیتاسenتر |
