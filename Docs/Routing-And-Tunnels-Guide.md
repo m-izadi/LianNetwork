@@ -110,16 +110,157 @@ curl -4 ipconfig.io ; echo
 
 ## ۴. لایه B — میکروTik
 
-اینجا ترافیک خارجی به **فرانسه** می‌رود. OpenVPN جداگانه برای **دسترسی ParsPack به LAN** است.
+**مهم:** سه نوع VPN روی میکروTik **جدا** هستند — قاطی نکن:
 
-### چیزهایی که از backup می‌دانیم
+| نوع | اینترفیس | جهت | نقش | egress |
+|-----|----------|-----|-----|--------|
+| **L2TP Client** | `tun2-L2` | میکروTik → France | خروج بین‌الملل | `202.133.88.39` |
+| **SSTP Client** | `hs` | میکروTik → France | خروج بین‌الملل (پشتیبان/موازی) | `202.133.88.39` |
+| **OpenVPN Server** | `ovpn-server` | ParsPack → میکروTik | دسترسی LAN / بکاپ | ❌ نه egress |
+| **OpenVPN Client** | `ovpn-client` | میکروTik → بیرون | احتمالاً USA — **جدا از France** | ممکن است آمریکا |
 
-| اینترفیس | نوع | وضعیت |
-|----------|-----|--------|
-| `hs` | SSTP Client | فعال → France |
-| `tun2-L2` | L2TP Client | فعال → France |
-| `ovpn-server` | OpenVPN Server | ParsPack ↔ LAN |
-| `br-ovpn` | Bridge | ترافیک OVPN |
+ترافیک `curl ipconfig.io` از **L2TP/SSTP به France** می‌رود، نه از OpenVPN.
+
+---
+
+### ۴.۱. کانفیگ France — کجای Winbox؟
+
+**مسیر منو (RouterOS):**
+
+| تنظیم | Winbox | Terminal |
+|-------|--------|----------|
+| L2TP به France | PPP → L2TP Client → **`tun2-L2`** | `/interface l2tp-client print detail` |
+| SSTP به France | PPP → SSTP Client → **`hs`** | `/interface sstp-client print detail` |
+| user/password تونل | PPP → Secrets | `/ppp secret print` |
+| مسیریابی France | IP → Routes (table **`route2fr`**) | `/routing table print` |
+| قوانین routing | Routing → Rules | `/routing rule print` |
+| NAT بعد از تونل | IP → Firewall → NAT | `/ip firewall nat print` |
+| OpenVPN ورودی (ParsPack) | PPP → OVPN Server | `/interface ovpn-server server print` |
+| OpenVPN خروجی (USA?) | PPP → OVPN Client | `/interface ovpn-client print` |
+
+**IP سرور France (از credentials پروژه):**
+
+| سرور | IP | user | pass |
+|------|-----|------|------|
+| France 2 (فعال) | `202.133.88.39` | root | `WklWkl@link2` |
+| France 1 (پشتیبان) | `202.133.88.239` | root | `WklWkl@link1` |
+
+> رمزها را در chat/email عمومی نفرست — فقط برای inspect داخلی.
+
+**چک سریع — آیا L2TP به France وصل است:**
+
+```routeros
+/interface l2tp-client print detail
+/interface sstp-client print detail
+/ppp active print
+/ping 8.8.8.8 routing-table=route2fr
+```
+
+---
+
+### ۴.۲. چرا OpenVPN «به آمریکا» به نظر می‌رسد؟
+
+احتمالاً **دو کانال موازی** داری:
+
+```
+ParsPack ──OpenVPN──► میکروTik (ovpn-server)     → فقط LAN / 192.168.88.x
+                              │
+ماشین‌ها ──L2TP/SSTP──► (از میکروTik) ──► France → curl ipconfig.io
+                              │
+میکروTik ──ovpn-client──► USA (144.172.x.x)?     → مسیر جدا — شاید سرویس خاص
+```
+
+- **OpenVPN Server** روی میکروTik: برای **ورود** VPSها به شبکهٔ داخلی — معمولاً route فقط subnet داخلی push می‌شود، نه default به France.
+- **OpenVPN Client** روی میکروTik (`ovpn-client` در backup): ممکن است تونل **خروجی به USA** باشد — جدا از L2TP France.
+- در README پروژه VPS USA: `144.172.91.114` با برچسب «USA for vpn».
+
+**تأیید روی میکروTik:**
+
+```routeros
+/interface ovpn-client print detail
+/ip route print where gateway~"ovpn"
+```
+
+**تأیید روی VPS ParsPack:**
+
+```bash
+# OpenVPN فقط LAN است یا default route هم می‌دهد؟
+grep -E 'redirect-gateway|route|pull' ~/vpn/*.ovpn 2>/dev/null
+ip route get 192.168.88.242
+ip route get 8.8.8.8
+```
+
+اگر `8.8.8.8` از `tun0` نمی‌رود ولی `192.168.88.x` می‌رود → OpenVPN فقط LAN است و egress از L2TP/SSTP است ✅
+
+---
+
+### ۴.۳. درخواست «کانفیگ VPN L2TP شرکت» — یعنی چی؟
+
+معمولاً یکی از این دو معنی را دارد:
+
+| معنی | چه کسی می‌خواهد | چه چیزی بفرست |
+|------|-----------------|---------------|
+| **A. اتصال به VPN شرکت** | کارمند / سرور جدید / پیمانکار | تنظیمات **L2TP Server** میکروTik (یا Windows/Android L2TP) |
+| **B. مستندسازی egress** | تیم فنی / جایگزین تو | تنظیمات **L2TP Client** میکروTik به France (`tun2-L2`) |
+
+**قبل از ارسال — از درخواست‌کننده بپرس:**
+
+> «منظورتون L2TP برای **اتصال به شبکهٔ شرکت** است یا کانفیگ **خروج به France** روی میکروTik؟»
+
+---
+
+#### اگر معنی A — کاربر جدید به VPN شرکت
+
+روی میکروTik جمع کن:
+
+```routeros
+/interface l2tp-server server print
+/interface l2tp-server print
+/ppp profile print
+/ppp secret print where service=l2tp
+/ip ipsec peer print
+/ip ipsec proposal print
+/ip firewall filter print where dst-port=1701,500,4500
+/ip address print
+```
+
+**چیزهایی که معمولاً لازم است (بدون رمز در email ناامن):**
+
+- IP عمومی میکروTik: `78.110.124.179`
+- نوع: L2TP over IPsec
+- IPsec PSK (pre-shared key)
+- username / password (یا بگو جدا بفرستند)
+- subnet داخلی بعد از connect (مثلاً `192.168.90.x`)
+
+**روی Windows/macOS/Android:** راهنمای L2TP/IPsec با همان PSK و user.
+
+---
+
+#### اگر معنی B — مستند egress France
+
+```routeros
+/interface l2tp-client print detail
+/ppp secret print where name~"tun2"
+/routing rule print where table=route2fr
+/ip route print where routing-table=route2fr
+```
+
+خروجی export (بدون password):
+
+```routeros
+/export file=l2tp-france-doc
+```
+
+---
+
+### ۴.۴. چک‌لیست کاری برای تو (DevOps جدید)
+
+1. Winbox → `/interface l2tp-client print detail` → IP France را یادداشت کن
+2. `/ppp active print` → session فعال L2TP/SSTP
+3. `/interface ovpn-client print` → آیا USA جداست؟
+4. از درخواست‌کننده L2TP بپرس: **A** (ورود به شرکت) یا **B** (France egress)
+5. تا تأیید admin — **password/PSK در تلگرام/email عمومی نفرست**
+6. export بگیر: `/export file=handover-$(date).rsc`
 
 ### دستورات — Winbox Terminal یا SSH
 
