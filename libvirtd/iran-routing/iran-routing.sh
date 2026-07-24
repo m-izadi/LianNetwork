@@ -6,10 +6,13 @@ if ! virsh net-info default >/dev/null 2>&1; then
     exit 1
 fi
 
-if ! virsh net-list --active | grep -q '^default'; then
+# Prefer --name (older virsh has no --active). Treat "already active" as OK.
+if ! virsh net-list --name 2>/dev/null | grep -qx 'default'; then
     echo "Starting default KVM network..."
-    virsh net-start default
+    virsh net-start default || true
 fi
+# If default exists but list format differs, try start and ignore "already active"
+virsh net-info default >/dev/null 2>&1 && virsh net-start default 2>/dev/null || true
 
 # ---------- Wait for virbr0 ----------
 for i in $(seq 1 60); do
@@ -64,10 +67,15 @@ iptables -t mangle -A PREROUTING \
 
 ip rule add fwmark 1 table iran-bypass prio 100
 
-# ---------- Start all defined VMs ----------
+# ---------- Start all defined VMs (do not fail whole unit if KVM missing) ----------
 for vm in $(virsh list --all --name); do
-    if ! virsh domstate "$vm" | grep -q running; then
+    [[ -z "$vm" ]] && continue
+    if ! virsh domstate "$vm" 2>/dev/null | grep -q running; then
         echo "Starting VM: $vm"
-        virsh start "$vm"
+        if ! virsh start "$vm"; then
+            echo "WARNING: failed to start VM '$vm' (KVM missing?). Policy routing still applied." >&2
+        fi
     fi
 done
+
+exit 0

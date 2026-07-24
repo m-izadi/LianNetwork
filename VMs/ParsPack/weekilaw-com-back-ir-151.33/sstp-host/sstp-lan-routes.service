@@ -1,0 +1,14 @@
+[Unit]
+Description=Add 192.168.88.0/24 route via SSTP peer after ppp is up
+After=sstp-ui4.service
+Requires=sstp-ui4.service
+Conflicts=iran-routing.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/bin/sstp-lan-routes.sh
+ExecStop=/bin/ip route del 192.168.88.0/24 2>/dev/null || true
+
+[Install]
+WantedBy=multi-user.target
