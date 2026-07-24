@@ -1,16 +1,19 @@
 [Unit]
-Description=SSTP client to company MikroTik (ui4-ir2) — workaround without local KVM VM
+Description=SSTP ui4-ir2 (simple)
 After=network-online.target
 Wants=network-online.target
-# Do not run alongside iran-routing + local mikrotik VM
-Conflicts=iran-routing.service
 
 [Service]
 Type=simple
-# secrets file: line1=user line2=password  (chmod 600)
-ExecStart=/bin/bash -c 'exec /usr/bin/sstpc --log-stderr --cert-warn --user "$(sed -n 1p /etc/sstp/ui4-ir2.secrets)" --password "$(sed -n 2p /etc/sstp/ui4-ir2.secrets)" 78.110.124.179:4443 usepeerdns require-mschap-v2 noauth'
-Restart=on-failure
-RestartSec=10
+EnvironmentFile=/etc/sstp/ui4-ir2.env
+ExecStartPre=-/sbin/ip rule del fwmark 1 table iran-bypass
+ExecStartPre=-/sbin/iptables -t mangle -F OUTPUT
+ExecStartPre=-/sbin/iptables -t mangle -F PREROUTING
+ExecStart=/usr/sbin/sstpc --log-stderr --cert-warn --user ${SSTP_USER} --password ${SSTP_PASSWORD} 78.110.124.179:4443 usepeerdns require-mschap-v2 noauth
+ExecStartPost=/bin/sleep 5
+ExecStartPost=/sbin/ip route replace 192.168.88.0/24 via 192.168.90.1
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
