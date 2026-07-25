@@ -12,7 +12,8 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/api.weekilaw.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
-    
+    client_max_body_size 20M;
+
     location /socket.io/ {
         proxy_pass http://127.0.0.1:3000;
         proxy_http_version 1.1;
