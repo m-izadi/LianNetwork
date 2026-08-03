@@ -3,3 +3,9 @@ Servers.md
 weekilaw
 VPN
 Docs
+
+VMs/ParsPack/wkl-app-prd-01/docker-compose/
+VMs/ParsPack/wkl-core-prd-01/docker-compose/
+VMs/ParsPack/wkl-fnt-prd-01/docker-compose/
+VMs/ParsPack/wkl-stg-prd-01/docker-compose/
+VMs/ParsPack/wkl-stg-prd-01/docker-compose/
