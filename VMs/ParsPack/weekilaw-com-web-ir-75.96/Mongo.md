@@ -47,7 +47,7 @@ sudo docker cp dump-weekilaw-ai-gateway mongodb:/tmp/dump-weekilaw-ai-gateway
 
 mongosh "mongodb://root:FNJ78dLHD7hln@d@127.0.0.1:27017/?authSource=admin" --eval "db.adminCommand('listDatabases')"
 
-mongorestore 
+mongorestore
 
 
 
@@ -70,8 +70,43 @@ sudo docker exec -it mongodb mongosh \
 
 
 
-# Lawgram
-mongosh "mongodb://test:test123@185.239.3.93:27017/?authSource=admin" --eval "db.adminCommand('listDatabases')"
+# Lawgram (185.239.3.93)
 
-mongosh mongodb://admin:strongpassword@127.0.0.1:27017/?authSource=admin --eval "db.adminCommand"
+### List DBs (روی سرور منبع / داخل کانتینر)
+mongosh "mongodb://admin:strongpassword@127.0.0.1:27017/?authSource=admin" --eval "db.adminCommand('listDatabases')"
 
+# کالکشن‌های هر DB غیرسیستمی را ببین تا بفهمی کدام Lawgram است
+mongosh "mongodb://admin:strongpassword@127.0.0.1:27017/test?authSource=admin" --eval 'db.getCollectionNames()'
+mongosh "mongodb://admin:strongpassword@127.0.0.1:27017/lianchat?authSource=admin" --eval 'db.getCollectionNames()'
+mongosh "mongodb://admin:strongpassword@127.0.0.1:27017/ishion?authSource=admin" --eval 'db.getCollectionNames()'
+mongosh "mongodb://admin:strongpassword@127.0.0.1:27017/weekila?authSource=admin" --eval 'db.getCollectionNames()'
+
+### Dump (احتمالاً test = Lawgram؛ اگر کالکشن‌ها چیز دیگری بود عوض کن)
+mkdir -p ~/mongo-migrate && cd ~/mongo-migrate
+
+mongodump \
+  --uri="mongodb://admin:strongpassword@127.0.0.1:27017/test?authSource=admin" \
+  --out=./dump-lawgram
+
+
+### CP TO VM + Tar
+# اگر dump داخل کانتینر گرفته شد:
+# sudo docker cp <mongo-container>:/path/to/mongo-migrate/dump-lawgram .
+tar -czf lawgram-$(date +%F).tgz dump-lawgram
+scp -P5566 lawgram-*.tgz izadi@158.255.74.75:~
+sudo docker cp mongo:/data/db/mongo-migrate/lawgram-2026-08-03.tgz .
+
+### Destination restore (test → lawgram)
+cd ~/mongo-bkp/
+tar -xzf lawgram-*.tgz
+sudo docker cp dump-lawgram mongodb:/tmp/dump-lawgram
+
+sudo docker exec -it mongodb mongorestore \
+  -u root -p 'FNJ78dLHD7hln@d' --authenticationDatabase admin \
+  --nsFrom='test.*' \
+  --nsTo='lawgram.*' \
+  --dir=/tmp/dump-lawgram
+
+sudo docker exec -it mongodb mongosh \
+  -u root -p 'FNJ78dLHD7hln@d' --authenticationDatabase admin \
+  --eval "db.adminCommand('listDatabases')"
