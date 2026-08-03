@@ -63,3 +63,12 @@ PORT :
 
 # Containers
 
+CONTAINER ID   IMAGE                           COMMAND                  CREATED        STATUS       PORTS                                                             NAMES
+f9f4bb0678b3   wikila-web                      "/docker-entrypoint.…"   4 days ago     Up 4 days    0.0.0.0:8080->80/tcp, [::]:8080->80/tcp                           wikila-container
+4c3b1f4e8e10   test-web-weekilaw               "/docker-entrypoint.…"   5 days ago     Up 5 days    0.0.0.0:3500->80/tcp, [::]:3500->80/tcp                           test-web-weekilaw
+ed62ff80e15a   serviceapp                      "/docker-entrypoint.…"   2 weeks ago    Up 11 days   80/tcp, 0.0.0.0:4000->4000/tcp, [::]:4000->4000/tcp               serviceapp
+d87859a51f14   weekilaw-tools-weekilaw-tools   "docker-entrypoint.s…"   3 weeks ago    Up 11 days                                                                     weekilaw-tools
+dcf66ddb4013   payment-app                     "docker-entrypoint.s…"   7 weeks ago    Up 8 days    0.0.0.0:3001->3001/tcp, [::]:3001->3001/tcp                       weekila-payment
+fbd9fff20c62   payment2-app                    "docker-entrypoint.s…"   7 weeks ago    Up 8 days    0.0.0.0:3002->3002/tcp, [::]:3002->3002/tcp                       weekila-payment2
+c8d63f89b7ae   mongo:latest                    "docker-entrypoint.s…"   2 months ago   Up 11 days   0.0.0.0:27017->27017/tcp, [::]:27017->27017/tcp                   mongodb
+b4a8b3132af8   minio/minio:latest              "/usr/bin/docker-ent…"   7 months ago   Up 11 days   0.0.0.0:9000-9001->9000-9001/tcp, [::]:9000-9001->9000-9001/tcp   minio
