@@ -22,18 +22,23 @@ chmod +x mc
 sudo mv mc /usr/local/bin/
 
 
-mc alias set weekilaw-93 http://185.239.3.93:9000 admin 'strongminiopassword'
+mc alias set weegramw-93 http://185.239.3.93:9000 admin 'strongminiopassword'
+mc alias set weekilaw-93 https:/data.weegram.weekilaw.com:9000 admin 'strongminiopassword'
 
-mc alias set wkl-fnt-prd-01 http://171.22.25.172:9000 root 'T89J@zH!zUifnDY!a'
-
-
-mc mb newminio/weegram --ignore-existing
+mc alias set wkl-stg-prd-01 http://171.22.25.172:9000 root 'T89J@zH!zUifnDY!a'
 
 
-mc mirror --preserve --overwrite weekilaw-93/weekila newminio/weekila
+mc mb wkl-stg-prd-01/weegram --ignore-existing
+mc mb wkl-stg-prd-01/ishion --ignore-existing
+mc mb wkl-stg-prd-01/lianchat --ignore-existing
 
-mc mirror --preserve --overwrite --watch weekilaw-93/weekila newminio/weekila
 
-mc ls --summarize weekilaw-93/weekila
-mc ls --summarize newminio/weekila
-mc du weekilaw-93/weekila
+mc mirror --preserve --overwrite weekilaw-93/weegram wkl-stg-prd-01/weegram
+mc mirror --preserve --overwrite weekilaw-93/ishion wkl-stg-prd-01/ishion
+mc mirror --preserve --overwrite weekilaw-93/lianchat wkl-stg-prd-01/lianchat
+
+mc mirror --preserve --overwrite --watch weekilaw-93/weegram wkl-stg-prd-01/weegram
+
+mc ls --summarize weekilaw-93/weegram
+mc ls --summarize wkl-stg-prd-01/weegram
+mc du weekilaw-93/weegram
