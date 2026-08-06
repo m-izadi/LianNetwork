@@ -47,3 +47,9 @@ PORT :
 
 → [NETWORK-WORKAROUND.md](./NETWORK-WORKAROUND.md)
 → فایل‌های systemd: [sstp-host/](./sstp-host/)
+
+## WireGuard → pfSense (فقط Anthropic API)
+
+فقط `api.anthropic.com` (`160.79.104.0/23`) از تانل؛ بقیه مثل قبل:
+
+→ [wireguard-anthropic/README.md](./wireguard-anthropic/README.md)
