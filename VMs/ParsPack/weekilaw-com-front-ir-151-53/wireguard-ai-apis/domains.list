@@ -1,0 +1,8 @@
+# Domains whose A records must go via WireGuard egress (one host per line).
+# Paths like /v1 are ignored — routing is by destination IP of the hostname.
+api.mistral.ai
+api.openai.com
+api.elevenlabs.io
+api.anthropic.com
+api.deepseek.com
+api.x.ai
