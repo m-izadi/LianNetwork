@@ -7,5 +7,13 @@ vnet0            UNKNOWN        fe80::fc54:ff:fec5:64c6/64
 
 ---
 
-بعد از ریستارت اگر KVM نباشد و `iran-routing` fail شد:
+## بعد از ریستارت (تانل بالا نیست)
+
+→ **[AFTER-REBOOT.md](./AFTER-REBOOT.md)** — تشخیص + بالا آوردن سریع
+
+نصب اولیه SSTP (بدون KVM):  
 → [SIMPLE-SSTP.md](./SIMPLE-SSTP.md) (user میکروTik: `ui5-ir3`)
+
+## AI APIها از VPN خارج (OpenAI / Anthropic / …)
+
+→ **[wireguard-ai-apis/README.md](./wireguard-ai-apis/README.md)**
