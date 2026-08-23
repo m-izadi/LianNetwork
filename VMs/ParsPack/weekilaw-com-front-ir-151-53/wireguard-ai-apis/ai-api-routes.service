@@ -1,0 +1,9 @@
+[Unit]
+Description=Sync AI API host routes via WireGuard wg-ai
+After=network-online.target wg-quick@wg-ai.service
+Wants=network-online.target
+Requires=wg-quick@wg-ai.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sync-ai-routes.sh
