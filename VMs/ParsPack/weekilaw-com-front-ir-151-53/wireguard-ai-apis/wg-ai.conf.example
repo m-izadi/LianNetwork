@@ -1,0 +1,23 @@
+# WireGuard client — weekilaw-com-front-ir (178.239.151.53)
+# Only AI API destinations via foreign egress; LAN/SSTP/default unchanged.
+#
+# Table=off → wg-quick does NOT install AllowedIPs as routes.
+# sync-ai-routes.sh resolves domains.list and adds /32 routes + updates peer AllowedIPs.
+#
+# sudo cp wg-ai.conf.example /etc/wireguard/wg-ai.conf
+# sudo chmod 600 /etc/wireguard/wg-ai.conf
+# sudo systemctl enable --now wg-quick@wg-ai
+# sudo systemctl enable --now ai-api-routes.timer
+
+[Interface]
+PrivateKey = CLIENT_PRIVATE_KEY_HERE
+Address = 10.20.1.3/24
+# Do NOT set DNS=
+Table = off
+
+[Peer]
+PublicKey = EGRESS_SERVER_PUBLIC_KEY_HERE
+Endpoint = EGRESS_PUBLIC_IP:PORT
+# Seed list; sync script rewrites AllowedIPs from live DNS (+ static CIDRs below)
+AllowedIPs = 160.79.104.0/23
+PersistentKeepalive = 25
