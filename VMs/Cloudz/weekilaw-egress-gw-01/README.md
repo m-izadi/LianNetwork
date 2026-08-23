@@ -13,3 +13,7 @@ wg0              UNKNOWN        10.200.0.1/32
 egress بین‌الملل فعلی کل زیرساخت: **France 2 → `202.133.88.39`** (`curl ipconfig.io`)
 
 جزئیات: [Docs/ParsPack-Datacenter-Connectivity.md](../../../Docs/ParsPack-Datacenter-Connectivity.md)
+
+اگر کلاینت WireGuard (مثلاً front `.53`) ترافیک API می‌فرستد ولی جواب نمی‌گیرد:  
+→ [NAT-FOR-WG-CLIENT.md](./NAT-FOR-WG-CLIENT.md)
+
