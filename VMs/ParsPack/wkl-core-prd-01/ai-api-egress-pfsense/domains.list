@@ -1,0 +1,7 @@
+# Domains routed via pfSense WAN2 (one hostname per line).
+api.mistral.ai
+api.openai.com
+api.elevenlabs.io
+api.anthropic.com
+api.deepseek.com
+api.x.ai
