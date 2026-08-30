@@ -1,0 +1,38 @@
+# Catch-all: unknown Host headers must not fall through to a real vhost.
+# Without this, any domain that points its CDN/origin at this IP
+# (e.g. moeinakrami.ir) is served as admin.weekilaw.com.
+#
+# nginx 1.18 has no ssl_reject_handshake; reuse an existing cert only so
+# the default SSL listener can bind. Clients still get connection close.
+
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name _;
+    return 444;
+}
+
+server {
+    listen 443 ssl http2 default_server;
+    listen [::]:443 ssl http2 default_server;
+    server_name _;
+
+    ssl_certificate     /etc/nginx/ssl/team.weekilaw.com/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/team.weekilaw.com/private.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    return 444;
+}
+
+# Known hijack: 301 so Google consolidates ranking onto the real host.
+server {
+    listen 80;
+    listen 443 ssl http2;
+    server_name moeinakrami.ir www.moeinakrami.ir;
+
+    ssl_certificate     /etc/nginx/ssl/team.weekilaw.com/fullchain.pem;
+    ssl_certificate_key /etc/nginx/ssl/team.weekilaw.com/private.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+
+    return 301 https://admin.weekilaw.com$request_uri;
+}
