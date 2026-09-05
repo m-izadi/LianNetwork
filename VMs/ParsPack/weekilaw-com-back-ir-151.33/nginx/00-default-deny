@@ -34,5 +34,5 @@ server {
     ssl_certificate_key /etc/nginx/ssl/team.weekilaw.com/private.key;
     ssl_protocols TLSv1.2 TLSv1.3;
 
-    return 301 https://admin.weekilaw.com$request_uri;
+    return 301 https://weekilaw.com$request_uri;
 }
